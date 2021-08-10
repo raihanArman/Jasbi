@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ScrollView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/sv_sign_in"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <FrameLayout
+                android:id="@+id/fm"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="25sp"
+                        android:layout_marginTop="20dp"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="@font/inter_bold"
+                        android:text="Cek email anda"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/black_blue"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="@font/inter_medium"
+                        android:text="Kami telah mengirim kode verifikasi"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="30dp"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/colorGrey"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp">
+
+                        <EditText
+                            android:id="@+id/et_confirm1"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black_blue"
+                            android:textSize="30dp"
+                            android:maxLines="1"
+                            android:inputType="number"
+                            android:singleLine="true"
+                            android:maxLength="1"
+                            android:padding="10dp"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/bg_input_otp"
+                            android:gravity="center_horizontal"/>
+
+                        <EditText
+                            android:id="@+id/et_confirm2"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black_blue"
+                            android:textSize="30dp"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:padding="10dp"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/bg_input_otp"
+                            android:gravity="center_horizontal"/>
+
+                        <EditText
+                            android:id="@+id/et_confirm3"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:textColor="@color/black_blue"
+                            android:textSize="30dp"
+                            android:padding="10dp"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/bg_input_otp"/>
+
+                        <EditText
+                            android:id="@+id/et_confirm4"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black_blue"
+                            android:textSize="30dp"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:padding="10dp"
+                            android:layout_margin="10dp"
+                            tools:text="8"
+                            android:background="@drawable/bg_input_otp"
+                            android:gravity="center_horizontal"/>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/tv_registrasi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="20dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="30dp"
+                        android:layout_gravity="center_horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/inter_medium"
+                            android:text="Kode expired dalam : "
+                            android:layout_marginRight="5dp"
+                            android:textColor="@color/black_blue"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="05:00"
+                            android:textColor="@color/teal_200"/>
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btn_verify"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Verifikasi"
+                        android:textAllCaps="false"
+                        android:backgroundTint="@color/purple_500"
+                        android:textColor="@android:color/white"
+                        android:background="@drawable/button_white"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="40dp"/>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Kirim Lagi"
+                        android:background="@drawable/bg_rounded"
+                        android:layout_gravity="center_horizontal"
+                        style="@style/ButtonRounded"
+                        android:paddingBottom="12dp"
+                        android:paddingTop="12dp"
+                        android:layout_marginTop="20dp"/>
+
+                </LinearLayout>
+            </FrameLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+</layout>

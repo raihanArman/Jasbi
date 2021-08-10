@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ButtonStlye123" parent="android:style/Widget.Button">
+        <item name="fontFamily">@font/inter_medium</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:background">@drawable/button_google</item>
+        <item name="android:backgroundTint">@color/teal_200</item>
+    </style>
+
+
+    <style name="ButtonRounded" parent="android:style/Widget.Button">
+        <item name="fontFamily">@font/inter_medium</item>
+        <item name="android:textColor">@color/colorGrey</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:background">@drawable/bg_rounded</item>
+    </style>
+</resources>

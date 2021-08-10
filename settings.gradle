@@ -1,0 +1,12 @@
+rootProject.name = "Jasbi"
+include ':app'
+include ':core'
+include ':features:login'
+include ':features:home'
+include ':features:order'
+include ':features:cart'
+include ':features:notification'
+include ':features:profile'
+include ':features:payment'
+include ':navigation'
+include ':features:detail'
