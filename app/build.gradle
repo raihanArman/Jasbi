@@ -43,7 +43,8 @@ android {
     productFlavors{
         dev {
             applicationId = "id.co.jasbi.dev"
-            buildConfigField "String", "BASE_URL", "\"https://choicepos.id:2010/api/v1/\""
+            buildConfigField "String", "BASE_URL", "\"http://choicepos.id:2010/api/v1/\""
+            buildConfigField "String", "HOST_NAME", "\"choicepos.id\""
         }
     }
 }
@@ -54,6 +55,7 @@ dependencies {
     implementation project(path: ':features:login')
     implementation project(path: ':features:detail')
     implementation project(path: ':core')
+    implementation project(path: ':libraries:datastore')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.6.0'

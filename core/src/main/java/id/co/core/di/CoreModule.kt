@@ -8,7 +8,7 @@ import org.koin.dsl.module
 object CoreModule {
     val repositoryModule = module{
         single {
-            RemoteDataSource(get())
+            RemoteDataSource(get(), get())
         }
 //        single {
 //            LocalDataSource(get())
