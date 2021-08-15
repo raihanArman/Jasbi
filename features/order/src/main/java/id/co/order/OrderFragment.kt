@@ -1,5 +1,6 @@
 package id.co.order
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,14 +9,22 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.co.core.data.model.Order
+import id.co.core.data.model.history.History
+import id.co.core.data.response.ResponseState
 import id.co.order.databinding.FragmentOrderBinding
+import id.co.order.module.OrderModule.orderModule
+import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.core.context.loadKoinModules
 import java.util.*
 
 class OrderFragment : Fragment() {
 
     private lateinit var binding: FragmentOrderBinding
+    private val viewModel: OrderViewModel by viewModel()
     private val adapter: OrderAdapter by lazy {
-        OrderAdapter()
+        OrderAdapter{
+            showDetail(it)
+        }
     }
 
     override fun onCreateView(
@@ -29,47 +38,49 @@ class OrderFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        loadKoinModules(orderModule)
         setupAdapter()
+        setupObserve()
+    }
 
+    private fun setupObserve() {
+        viewModel.getTransaction().observe(viewLifecycleOwner){response ->
+            when(response){
+                is ResponseState.Success ->{
+                    binding.tvEmpty.visibility = View.GONE
+                    setData(response.data)
+                }
+
+                is ResponseState.Loading ->{
+
+                }
+
+                is ResponseState.Error ->{
+                    binding.tvEmpty.visibility = View.GONE
+
+                }
+                is ResponseState.Empty ->{
+                    binding.tvEmpty.visibility = View.VISIBLE
+                }
+            }
+        }
+    }
+
+    private fun setData(data: List<History>) {
+        adapter.setListOrder(data)
     }
 
     private fun setupAdapter() {
-        val listOrder = mutableListOf<Order>()
-        listOrder.add(Order(
-            "1",
-            null,
-            "3",
-            Date(),
-            "Diproses",
-            "Paket Snack",
-            "https://id-test-11.slatic.net/p/6f9a1385aee7dd58a8e104e906b01911.jpg_720x720q80.jpg_.webp"
-        ))
-        listOrder.add(Order(
-            "1",
-            null,
-            "3",
-            Date(),
-            "Diproses",
-            "Paket Snack",
-            "https://id-test-11.slatic.net/p/6f9a1385aee7dd58a8e104e906b01911.jpg_720x720q80.jpg_.webp"
-        ))
-        listOrder.add(Order(
-            "1",
-            null,
-            "3",
-            Date(),
-            "Diproses",
-            "Paket Snack",
-            "https://id-test-11.slatic.net/p/6f9a1385aee7dd58a8e104e906b01911.jpg_720x720q80.jpg_.webp"
-        ))
-
         with(binding){
             rvOrder.layoutManager = LinearLayoutManager(requireContext())
             rvOrder.adapter = adapter
-
-            adapter.setListOrder(listOrder)
         }
-
     }
+
+    private fun showDetail(history: History){
+        val intent = Intent(requireContext(), DetailTransaksiActivity::class.java)
+        intent.putExtra("history", history)
+        startActivity(intent)
+    }
+
 }

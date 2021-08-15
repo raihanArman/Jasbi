@@ -5,13 +5,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import id.co.cart.databinding.ItemQtyBinding
+import id.co.core.data.db.entities.ProductEntitiy
 import id.co.core.data.model.Order
 
 class QuantityAdapter: RecyclerView.Adapter<QuantityAdapter.ViewHolder>() {
 
-    private val listOrder = ArrayList<Order>()
+    private val listOrder = ArrayList<ProductEntitiy>()
 
-    fun setListOrder(listOrder: List<Order>){
+    fun setListOrder(listOrder: List<ProductEntitiy>){
         this.listOrder.clear()
         this.listOrder.addAll(listOrder)
         notifyDataSetChanged()
@@ -31,11 +32,11 @@ class QuantityAdapter: RecyclerView.Adapter<QuantityAdapter.ViewHolder>() {
     override fun getItemCount(): Int = listOrder.size
 
     inner class ViewHolder(val binding: ItemQtyBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(order: Order){
+        fun bind(order: ProductEntitiy){
             with(binding){
-                tvName.text = order.name
-                tvQty.text = "${order.quantity} Pcs"
-                tvSubTotal.text = order.subTotal
+                tvName.text = order.product.nama
+                tvQty.text = "${order.qty} Pcs"
+                tvSubTotal.text = (order.product.harga!!.toInt() * order.qty).toString()
             }
         }
     }

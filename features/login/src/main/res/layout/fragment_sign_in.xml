@@ -50,7 +50,7 @@
                     <EditText
                         android:id="@+id/et_email"
                         android:padding="15dp"
-                        android:hint="Email or phone number"
+                        android:hint="Email"
                         android:textSize="12sp"
                         android:textColor="@android:color/black"
                         android:ems="10"
@@ -90,18 +90,18 @@
                                 android:background="@drawable/bg_input"/>
                         </com.google.android.material.textfield.TextInputLayout>
 
-                        <TextView
-                            android:id="@+id/tv_forget"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="15sp"
-                            android:fontFamily="@font/inter_medium"
-                            android:text="Lupa password ?"
-                            android:layout_marginRight="5dp"
-                            android:textColor="@color/black_blue"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginTop="10dp"
-                            android:layout_below="@id/etPasswordLayout"/>
+<!--                        <TextView-->
+<!--                            android:id="@+id/tv_forget"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_below="@id/etPasswordLayout"-->
+<!--                            android:layout_alignParentRight="true"-->
+<!--                            android:layout_marginTop="10dp"-->
+<!--                            android:layout_marginRight="5dp"-->
+<!--                            android:fontFamily="@font/inter_medium"-->
+<!--                            android:text="Lupa password ?"-->
+<!--                            android:textColor="@color/black_blue"-->
+<!--                            android:textSize="15sp" />-->
 
                     </RelativeLayout>
                     <Button
@@ -116,25 +116,25 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="80dp"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:layout_marginTop="20dp"
-                        android:layout_gravity="center_horizontal"
-                        android:fontFamily="@font/inter_medium"
-                        android:text="Atau masuk dengan"
-                        android:layout_marginBottom="20dp"
-                        android:layout_centerHorizontal="true"
-                        android:textColor="@color/colorGrey"/>
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Google"
-                        android:paddingTop="12dp"
-                        android:paddingBottom="12dp"
-                        style="@style/ButtonStlye123"
-                        android:layout_gravity="center_horizontal"/>
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:layout_marginTop="20dp"-->
+<!--                        android:layout_gravity="center_horizontal"-->
+<!--                        android:fontFamily="@font/inter_medium"-->
+<!--                        android:text="Atau masuk dengan"-->
+<!--                        android:layout_marginBottom="20dp"-->
+<!--                        android:layout_centerHorizontal="true"-->
+<!--                        android:textColor="@color/colorGrey"/>-->
+<!--                    <androidx.appcompat.widget.AppCompatButton-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Google"-->
+<!--                        android:paddingTop="12dp"-->
+<!--                        android:paddingBottom="12dp"-->
+<!--                        style="@style/ButtonStlye123"-->
+<!--                        android:layout_gravity="center_horizontal"/>-->
                     <LinearLayout
                         android:id="@+id/tv_registrasi"
                         android:layout_width="wrap_content"

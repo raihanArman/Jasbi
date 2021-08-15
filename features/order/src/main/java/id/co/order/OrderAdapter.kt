@@ -7,13 +7,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import id.co.core.data.model.Order
+import id.co.core.data.model.history.History
 import id.co.order.databinding.ItemOrderBinding
 
-class OrderAdapter: RecyclerView.Adapter<OrderAdapter.ViewHolder>() {
+class OrderAdapter(val showDetail: (History) -> Unit): RecyclerView.Adapter<OrderAdapter.ViewHolder>() {
 
-    private val listOrder = ArrayList<Order>()
+    private val listOrder = ArrayList<History>()
 
-    fun setListOrder(listOrder: List<Order>){
+    fun setListOrder(listOrder: List<History>){
         this.listOrder.clear()
         this.listOrder.addAll(listOrder)
         notifyDataSetChanged()
@@ -34,19 +35,21 @@ class OrderAdapter: RecyclerView.Adapter<OrderAdapter.ViewHolder>() {
 
 
     inner class ViewHolder(val binding: ItemOrderBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(order: Order){
+        fun bind(order: History){
             with(binding){
-                tvName.text = order.name
-                (order.quantity+" pcs").also { tvQty.text = it }
+                tvName.text = "${order.detailTransaksi.size} pesanan"
 
-                val date = DateFormat.format("dd/MM/yyyy - HH:mm", order.date).toString()
+                val date = DateFormat.format("dd/MM/yyyy - HH:mm", order.createdAt).toString()
                 tvDate.text = date
-                tvStatus.text = order.status
+                tvStatus.text = if(order.statusPembayaran == 0){
+                    "Belum Dibayar"
+                }else{
+                    "Sudah dibayar"
+                }
 
-                Glide.with(itemView.context)
-                    .load(order.image)
-                    .into(ivOrder)
-
+                itemView.setOnClickListener {
+                    showDetail(order)
+                }
             }
         }
     }

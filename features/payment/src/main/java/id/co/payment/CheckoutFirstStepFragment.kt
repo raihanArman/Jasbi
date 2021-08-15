@@ -6,24 +6,36 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import id.co.core.data.db.entities.ProductEntitiy
 import id.co.core.data.model.Order
 import id.co.payment.databinding.FragmentCheckoutFirstStepBinding
+import id.co.payment.module.PaymentModule.paymentModule
+import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.core.context.loadKoinModules
 import java.util.*
 
 
 class CheckoutFirstStepFragment : Fragment() {
 
     private lateinit var binding: FragmentCheckoutFirstStepBinding
-    private val cartAdapter: CartAdapter by lazy {
-        CartAdapter()
+    private val adapter: CartAdapter by lazy {
+        CartAdapter({id, qty ->
+            updateProduct(id, qty)
+        },{cart ->
+            deleteItemCart(cart)
+        }
+        )
     }
 
     private val qtyAdapter: QuantityAdapter by lazy {
         QuantityAdapter()
     }
+
+    private val viewModel: PaymentViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,8 +48,10 @@ class CheckoutFirstStepFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        loadKoinModules(paymentModule)
         setupAdapter()
+
+        getProduct()
 
         binding.btnLanjut.setOnClickListener {
             val deepLink = Uri.parse("jasbi://checkoutsecond")
@@ -46,31 +60,47 @@ class CheckoutFirstStepFragment : Fragment() {
 
     }
 
+    private fun getProduct() {
+        val data = viewModel.getProductLocal()
+        adapter.setListOrder(data)
+        setTotal()
+    }
+
+    private fun setTotal() {
+        val produkList = viewModel.getProductLocal()
+        qtyAdapter.setListOrder(produkList)
+        var total: Int = 0
+        val biayaPengantaran = 15000
+        for(dataProduk in produkList){
+            val subTotal = dataProduk.product.harga!!.toInt() * dataProduk.qty
+            total += subTotal
+        }
+        val totalHarga = total
+        binding.tvTotal.text = totalHarga.toString()
+    }
+
     private fun setupAdapter() {
-        val listOrder = mutableListOf<Order>()
-        listOrder.add(
-            Order(
-                "1",
-                null,
-                "3",
-                Date(),
-                "Diproses",
-                "Paket Snack",
-                "https://id-test-11.slatic.net/p/6f9a1385aee7dd58a8e104e906b01911.jpg_720x720q80.jpg_.webp"
-            )
-        )
 
         with(binding){
             rvCart.layoutManager = LinearLayoutManager(requireContext())
-            rvCart.adapter = cartAdapter
+            rvCart.adapter = adapter
 
             rvQty.layoutManager = LinearLayoutManager(requireContext())
             rvQty.adapter = qtyAdapter
 
-            cartAdapter.setListOrder(listOrder)
-            qtyAdapter.setListOrder(listOrder)
         }
+    }
 
+    private fun updateProduct(id: Int, qty: Int){
+        viewModel.updateQtyCart(qty, id)
+        setTotal()
+    }
+
+
+    private fun deleteItemCart(productEntitiy: ProductEntitiy){
+        viewModel.deleteItemCart(productEntitiy)
+        setTotal()
+        Toast.makeText(requireContext(), "Berhasil hapus cart", Toast.LENGTH_SHORT).show()
     }
 
 }

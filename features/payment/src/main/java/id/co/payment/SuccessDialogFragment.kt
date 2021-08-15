@@ -31,9 +31,12 @@ class SuccessDialogFragment : DialogFragment() {
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
+        val url = requireArguments().getString("url")
+
         binding.btnLanjut.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("jasbi://main"))
             intent.putExtra("order", true)
+            intent.putExtra("url", url)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
         }

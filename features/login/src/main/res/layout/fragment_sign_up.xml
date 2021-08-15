@@ -99,9 +99,11 @@
                                 android:maxLines="1"
                                 android:hint="Password"
                                 android:drawableLeft="@drawable/ic_baseline_lock_24"
+                                android:drawableStart="@drawable/ic_baseline_lock_24"
                                 android:drawablePadding="10dp"
                                 android:background="@drawable/bg_input"/>
                         </com.google.android.material.textfield.TextInputLayout>
+
                     </RelativeLayout>
                     <RelativeLayout
                         android:id="@+id/p_item_1_parent"

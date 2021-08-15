@@ -2,6 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="id.co.home">
 
-
+    <application>
+        <activity
+            android:name=".SearchActivity"
+            android:exported="true" />
+        <activity
+            android:name=".DetailProductActivity"
+            android:exported="true"
+            android:theme="@style/Detail"
+            android:windowSoftInputMode="adjustResize" />
+    </application>
 
 </manifest>

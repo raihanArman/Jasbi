@@ -10,12 +10,9 @@
         android:title="My Order"
         app:showAsAction="always"/>
 
-    <item android:id="@+id/mantap"
-        android:title=""
-        app:showAsAction="always"/>
-    <item android:id="@+id/notificationFragment"
-        android:icon="@drawable/notif"
-        android:title="Notification"
+    <item android:id="@+id/cartFragment"
+        android:icon="@drawable/cart"
+        android:title="Keranjang"
         app:showAsAction="always"/>
     <item android:id="@+id/profileFragment"
         android:icon="@drawable/profile"

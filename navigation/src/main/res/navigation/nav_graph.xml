@@ -24,11 +24,7 @@
         android:id="@+id/cartFragment"
         android:name="id.co.cart.CartFragment"
         android:label="CartFragment"
-        tools:layout="@layout/fragment_cart">
-        <deepLink
-            android:id="@+id/deepLink"
-            app:uri="jasbi://cart" />
-    </fragment>
+        tools:layout="@layout/fragment_cart"/>
     <fragment
         android:id="@+id/profileFragment"
         android:name="id.co.profile.ProfileFragment"

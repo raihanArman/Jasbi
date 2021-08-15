@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class ResponseData<T>(
-    @SerializedName("status")
+    @SerializedName("status_code")
     @Expose
     var status: Int,
 

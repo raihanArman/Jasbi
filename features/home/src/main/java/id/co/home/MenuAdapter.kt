@@ -5,18 +5,20 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import id.co.core.data.model.CategoryMenu
 import id.co.core.data.model.Menu
 import id.co.home.databinding.ItemMenuBinding
 
-class MenuAdapter(val showDetail:(Menu) -> Unit): RecyclerView.Adapter<MenuAdapter.ViewHolder>() {
+class MenuAdapter(val showDetail:(CategoryMenu) -> Unit): RecyclerView.Adapter<MenuAdapter.ViewHolder>() {
 
-    private val listMenu = ArrayList<Menu>()
+    private val listMenu = ArrayList<CategoryMenu>()
 
-    fun setListMenu(listMenu: List<Menu>){
+    fun setListMenu(listMenu: List<CategoryMenu>){
         this.listMenu.clear()
         this.listMenu.addAll(listMenu)
         notifyDataSetChanged()
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuAdapter.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -32,12 +34,12 @@ class MenuAdapter(val showDetail:(Menu) -> Unit): RecyclerView.Adapter<MenuAdapt
     override fun getItemCount(): Int = listMenu.size
 
     inner class ViewHolder(val binding: ItemMenuBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(menu: Menu){
+        fun bind(menu: CategoryMenu){
             with(binding){
-                tvName.text = menu.menuName
+                tvName.text = menu.product[0].nama
                 tvCategory.text = menu.categoryName
                 Glide.with(itemView.context)
-                    .load(menu.image)
+                    .load(menu.product[0].image)
                     .into(ivMenu)
             }
 

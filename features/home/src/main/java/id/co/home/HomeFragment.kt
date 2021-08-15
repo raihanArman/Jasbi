@@ -7,19 +7,31 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.co.core.data.model.Category
+import id.co.core.data.model.CategoryMenu
 import id.co.core.data.model.Menu
+import id.co.core.data.model.User
+import id.co.core.data.response.ResponseState
 import id.co.home.databinding.FragmentHomeBinding
+import id.co.home.module.HomeModule.homeModule
+import org.koin.core.context.loadKoinModules
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
+    private val viewModel: HomeViewModel by viewModel()
+
     private val categoryAdapter: CategoryAdapter by lazy {
-        CategoryAdapter()
+        CategoryAdapter{
+            showMenuByCategory(it)
+        }
     }
 
     private val menuAdapter: MenuAdapter by lazy {
@@ -39,41 +51,56 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        loadKoinModules(homeModule)
         setupAdapter()
+        setupObserveCategory()
+        setupUser()
+
+        binding.etSearch.setOnClickListener {
+            val intent = Intent(requireContext(), SearchActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 
+    private fun setupUser() {
+        viewModel.getUser().observe(viewLifecycleOwner){response ->
+            when(response){
+                is ResponseState.Success ->{
+                    setDataUser(response.data[0])
+                }
+                is ResponseState.Loading ->{
+
+                }
+                is ResponseState.Error ->{
+                    Toast.makeText(requireContext(), response.errorMessage, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun setDataUser(user: User) {
+        binding.tvUser.text = "Selamat Datang ${user.name} !"
+    }
+
+    private fun setupObserveCategory() {
+        viewModel.getCategory().observe(viewLifecycleOwner){response->
+            when(response){
+                is ResponseState.Success ->{
+                    categoryAdapter.setListCategory(response.data)
+                    setupObserveMenu(response.data[0].id!!)
+                }
+                is ResponseState.Loading ->{
+
+                }
+                is ResponseState.Error ->{
+                    Toast.makeText(requireContext(), response.errorMessage, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
     private fun setupAdapter() {
-        val listCategory = mutableListOf<Category>()
-        listCategory.add(Category(
-            "1",
-            "Semua"
-        ))
-        listCategory.add(Category(
-            "1",
-            "Makanan"
-        ))
-        listCategory.add(Category(
-            "1",
-            "Aqiqah"
-        ))
-
-        val listMenu = mutableListOf<Menu>()
-        listMenu.add(Menu(
-            "1",
-            "Paket Snack",
-            "https://id-test-11.slatic.net/p/6f9a1385aee7dd58a8e104e906b01911.jpg_720x720q80.jpg_.webp",
-            "Makanan . Kecil"
-        ))
-
-        listMenu.add(Menu(
-            "1",
-            "Paket Aqiqah",
-            "https://id-test-11.slatic.net/p/6f9a1385aee7dd58a8e104e906b01911.jpg_720x720q80.jpg_.webp",
-            "Makanan . Besar"
-        ))
-
         with(binding){
             val horiz = LinearLayoutManager(requireContext())
             horiz.orientation = LinearLayoutManager.HORIZONTAL
@@ -82,16 +109,33 @@ class HomeFragment : Fragment() {
 
             rvMenu.layoutManager = GridLayoutManager(requireContext(), 2)
             rvMenu.adapter = menuAdapter
-
-            categoryAdapter.setListCategory(listCategory)
-            menuAdapter.setListMenu(listMenu)
-
         }
     }
 
-    private fun showDetail(menu: Menu){
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("jasbi://detail"))
+    private fun showDetail(menu: CategoryMenu){
+        val intent = Intent(requireContext(), DetailProductActivity::class.java)
+        intent.putExtra("menu", menu)
         startActivity(intent)
+    }
+
+    private fun showMenuByCategory(category: Category){
+        setupObserveMenu(category.id!!)
+    }
+
+    private fun setupObserveMenu(idCategory: String) {
+        viewModel.getProduct(idCategory).observe(viewLifecycleOwner){response ->
+            when(response){
+                is ResponseState.Success ->{
+                    menuAdapter.setListMenu(response.data)
+                }
+                is ResponseState.Loading ->{
+
+                }
+                is ResponseState.Error ->{
+                    Toast.makeText(requireContext(), response.errorMessage, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
 }

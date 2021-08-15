@@ -19,6 +19,7 @@ class JasbiApplication: Application() {
             androidLogger(Level.NONE)
             androidContext(this@JasbiApplication)
             modules(listOf(
+                CoreModule.databaseModule,
                 dataStoreModule,
                 NetworkModule.networkModule,
                 CoreModule.repositoryModule,

@@ -215,6 +215,7 @@
                 android:text="Kembali" />
 
             <Button
+                android:id="@+id/btn_simpan"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

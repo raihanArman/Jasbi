@@ -34,7 +34,7 @@ object NetworkModule {
         }
         single{
             GsonBuilder()
-                .setDateFormat("yyyy-MM-dd HH:mm:ss")
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                 .create()
         }
         single {

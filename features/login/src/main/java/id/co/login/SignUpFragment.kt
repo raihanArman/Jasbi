@@ -151,10 +151,27 @@ class SignUpFragment : Fragment() {
 
                     }
                     is ResponseState.Success ->{
+                        loginProses(email, password)
+                    }
+                    is ResponseState.Error ->{
+                        Toast.makeText(requireContext(), response.errorMessage, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+    }
+
+    private fun loginProses(email: String, password: String) {
+        viewModel.loginUser(email, password)
+            .observe(viewLifecycleOwner, Observer {response ->
+                when(response){
+                    is ResponseState.Success ->{
                         goToMainActivity()
                     }
                     is ResponseState.Error ->{
                         Toast.makeText(requireContext(), response.errorMessage, Toast.LENGTH_SHORT).show()
+                    }
+                    is ResponseState.Loading ->{
+
                     }
                 }
             })
@@ -167,7 +184,7 @@ class SignUpFragment : Fragment() {
     }
 
     private fun goToMainActivity() {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("quiz://main"))
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("jasbi://main"))
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
     }
